@@ -10,8 +10,13 @@ require (
 	sigs.k8s.io/kustomize/kyaml v0.18.1
 )
 
-// https://github.com/kubernetes/apimachinery/issues/185
-replace sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.4.1
+replace (
+
+	// https://github.com/1Password/onepassword-sdk-go/issues/171
+	github.com/1password/onepassword-sdk-go => github.com/1password/onepassword-sdk-go v0.1.5
+	// https://github.com/kubernetes/apimachinery/issues/185
+	sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.4.1
+)
 
 require (
 	dario.cat/mergo v1.0.1 // indirect

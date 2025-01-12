@@ -264,4 +264,3 @@ linters-settings:
     ignore-comments: true
   stylecheck:
     checks: ["all", "-ST1003"]
-

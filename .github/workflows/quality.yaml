@@ -1,0 +1,43 @@
+name: quality
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: write
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Install dependencies
+        run: go get .
+      - name: Run tests
+        run: go test -json TestResults.json
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: TestResults.json
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          only-new-issues: true

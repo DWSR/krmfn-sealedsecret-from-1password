@@ -1,0 +1,11 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: foo
+spec:
+  encryptedData:
+    bar: analreadysealedsecret
+  template:
+    metadata:
+      labels:
+        foo: bar

@@ -1,0 +1,12 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: foo
+spec:
+  encryptedData:
+    foo: AgCWMrI2QWvUZBAGWTrWs99uV7RlusnYses04XOWexckdTXLw+JV5locvyETBbtHfKBZsppQB/Intj2fmEIswNJ9AJk97rXtrsPd+rV55zTTyGXt9nbNFMxOhWiEYCz3wCVaMNY0pX4VzVkVc5ggBvAyL8R92f17wRkUdCCu/RsPA0oDIF8MTjlrNeB6Fp61q1/QW66IUAs34+U4NDCy+U74ayEbIOeQRADhrtYFZT2Bs9YrSMZIGzomFEoOpN/OfXiKT48Gtss3R96EJcMlQElfLGShVOzPInIoI7Oy4xzkztpglTMwf42Ox9S4w1oo5YIRw9goSY98r4nBcoLbIr+ZWVvzCCgbWdGD1L5nD6p93Vp6AbmOK/pf0Jj8AvWwhb3JhudAJM79lUAwiARNy0XEKm8q6Hr9Bb9TNWc5VSwCpmVNWRODxcRScwKu7VFFbPptiSTD0eLruTuwEV6A9Llq3TOYT8TVKEjTLpz8sMgRu0rxqmNMYFfqJDL3pZ3fMOGjJZjUOHRGvX80ltaBn0IZZyYaX3HnJIhkV6+Q1VhmKwm6L4UXc60mnTIzDqYWH1ywYwpmS7SlZATwr4sRmmJw4CPSsr/g8IFidVXx+BCM+AVTKUD65ho0P6IcOqHOObphUakGj9GmQAMgQQIp5nC9jR9tf4VL6F/AzUUAtQKutpbAsjOELtuiX481PO0EAVBfDvFoAYPS9CLip/CdxQnHqkLYZSXZ6Bg=
+    bar: analreadysealedsecret
+  template:
+    metadata:
+      labels:
+        foo: bar

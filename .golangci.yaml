@@ -1,0 +1,267 @@
+issues:
+  uniq-by-line: false
+  exclude-use-default: false
+  exclude:
+    - EXC0001
+    - EXC0003
+    - EXC0004
+    - EXC0005
+    - EXC0006
+    - EXC0007
+    - EXC0008
+    - EXC0009
+    - EXC0011
+    - EXC0010
+    - EXC0013
+  exclude-rules:
+      # TODO Remove this once ignoreloopVar option is supported
+      # https://github.com/golangci/golangci-lint/issues/4405#issuecomment-1957104375
+    - text: Range statement for test .+ does not reinitialise the variable tc
+      linters:
+        - paralleltest
+    - text: "import-shadowing: The name 'require' shadows an import name"
+      linters:
+        - revive
+    - text: should have a package comment
+      path: main.go
+      linters:
+        - revive
+    - text: package comment should be of the form "(.+)...
+      linters:
+        - stylecheck
+        - revive
+    - path: "(.+)_test.go"
+      linters:
+        - dupl
+        - funlen
+        - err113
+  exclude-dirs:
+    - internal/temporal/activitygenerator/internal/generator/testdata
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - cyclop
+    - decorder
+    - depguard
+    - dogsled
+    - dupl
+    - dupword
+    - durationcheck
+    - err113
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - forbidigo
+    - forcetypeassert
+    - funlen
+    - gci
+    - ginkgolinter
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - gochecksumtype
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - gofmt
+    - gofumpt
+    - goheader
+    - goimports
+    - gomodguard
+    - goprintffuncname
+    - gosec
+    - gosmopolitan
+    - grouper
+    - importas
+    - inamedparam
+    - interfacebloat
+    - ireturn
+    - lll
+    - loggercheck
+    - maintidx
+    - makezero
+    - mirror
+    - misspell
+    - mnd
+    - musttag
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    - nlreturn
+    - noctx
+    - nolintlint
+    - nosprintfhostport
+    - paralleltest
+    - perfsprint
+    - prealloc
+    - predeclared
+    - promlinter
+    - protogetter
+    - reassign
+    - revive
+    - rowserrcheck
+    - sloglint
+    - spancheck
+    - sqlclosecheck
+    - stylecheck
+    - tagalign
+    - tagliatelle
+    - tenv
+    - testableexamples
+    - testifylint
+    - testpackage
+    - thelper
+    - unconvert
+    - unparam
+    - usestdlibvars
+    - varnamelen
+    - whitespace
+    - wrapcheck
+    - wsl
+
+linters-settings:
+  depguard:
+    rules:
+      main:
+        list-mode: lax
+        deny:
+          - pkg: github.com/pkg/errors
+            desc: Should be replaced by stdlib errors package
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/ford-innersource)
+      - prefix(github.com/ford-innersource/bedrock-engine)
+    custom-order: true
+  decorder:
+    ignore-underscore-vars: true
+    disable-dec-order-check: false
+    disable-init-func-first-check: false
+    disable-dec-num-check: false
+    disable-type-dec-num-check: false
+    disable-const-dec-num-check: false
+    disable-var-dec-num-check: false
+  varnamelen:
+    # tc: test cases for table driven tests
+    # t: interface for mocks in tests
+    ignore-names: [tc, t]
+    ignore-decls:
+      - "w http.ResponseWriter"
+      - "r *http.Request"
+      - "wg sync.WaitGroup"
+      - "eg errgroup.Group"
+      - "ao workflow.ActivityOptions"
+  revive:
+    ignore-generated-header: true
+    rules:
+      - name: argument-limit
+      - name: atomic
+      - name: banned-characters
+      - name: bare-return
+      - name: blank-imports
+      - name: bool-literal-in-expr
+      - name: call-to-gc
+      - name: comment-spacings
+      - name: confusing-results
+      - name: constant-logical-expr
+      - name: context-as-argument
+        arguments:
+          - allowTypesBefore: "*testing.T,*github.com/user/repo/testing.Harness"
+      - name: context-keys-type
+      - name: datarace
+      - name: deep-exit
+      - name: defer
+      - name: dot-imports
+      - name: duplicated-imports
+      - name: early-return
+        arguments:
+          - "preserveScope"
+      - name: empty-block
+      - name: empty-lines
+      - name: enforce-map-style
+        arguments:
+          - "make"
+      - name: enforce-repeated-arg-type-style
+        arguments:
+          - "short"
+      - name: enforce-slice-style
+        arguments:
+          - "make"
+      - name: error-naming
+      - name: error-return
+      - name: error-strings
+      - name: errorf
+      - name: exported
+        arguments:
+          - "sayRepetitiveInsteadOfStutters"
+      - name: flag-parameter
+      - name: function-result-limit
+      - name: get-return
+      - name: identical-branches
+      - name: if-return
+      - name: increment-decrement
+      - name: indent-error-flow
+        arguments:
+          - "preserveScope"
+      - name: import-alias-naming
+        arguments:
+          - "^[a-z][a-z0-9]{0,}$"
+      - name: import-shadowing
+      - name: max-control-nesting
+      - name: modifies-parameter
+      - name: modifies-value-receiver
+      - name: nested-structs
+      - name: optimize-operands-order
+      - name: package-comments
+      - name: range
+      - name: range-val-in-closure
+      - name: range-val-address
+      - name: receiver-naming
+      - name: redundant-import-alias
+      - name: redefines-builtin-id
+      - name: string-of-int
+      - name: struct-tag
+        arguments:
+          - "json,inline"
+          - "bson,outline,gnu"
+      - name: superfluous-else
+        arguments:
+          - "preserveScope"
+      - name: time-equal
+      - name: time-naming
+      - name: var-declaration
+      - name: unconditional-recursion
+      - name: unexported-naming
+      - name: unexported-return
+      - name: unhandled-error
+      - name: unnecessary-stmt
+      - name: unreachable-code
+      - name: unused-parameter
+        arguments:
+          - allowRegex: "^_"
+      - name: unused-receiver
+      - name: useless-break
+      - name: waitgroup-by-value
+  wsl:
+    # Allow cuddling with logging calls
+    allow-cuddle-with-calls: ["Lock", "RLock", "Info", "Debug", "Warn", "Error"]
+  funlen:
+    ignore-comments: true
+  stylecheck:
+    checks: ["all", "-ST1003"]
+

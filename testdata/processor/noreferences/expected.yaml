@@ -1,0 +1,50 @@
+apiVersion: config.kubernetes.io/v1
+kind: ResourceList
+items:
+- apiVersion: bitnami.com/v1alpha1
+  kind: SealedSecret
+  metadata:
+    name: foo
+  spec:
+    encryptedData:
+      bar: analreadysealedsecret
+    template:
+      metadata:
+        labels:
+          foo: bar
+functionConfig:
+  apiVersion: mentalclutter.ca/v1alpha1
+  kind: Tester
+  onePasswordServiceAccountToken: foo
+  sealingCert: |
+    -----BEGIN CERTIFICATE-----
+    MIIFQTCCAymgAwIBAgIUdmUYfBBE8HBtHHHJG3jL8NF/sgEwDQYJKoZIhvcNAQEL
+    BQAwMDEWMBQGA1UEAwwNc2VhbGVkLXNlY3JldDEWMBQGA1UECgwNc2VhbGVkLXNl
+    Y3JldDAeFw0yNTAxMTIwMjQ4MzZaFw0zNTAxMTAwMjQ4MzZaMDAxFjAUBgNVBAMM
+    DXNlYWxlZC1zZWNyZXQxFjAUBgNVBAoMDXNlYWxlZC1zZWNyZXQwggIiMA0GCSqG
+    SIb3DQEBAQUAA4ICDwAwggIKAoICAQCupvMx67NA8uflsY24hlpdls42gWjjdack
+    +xHFt1wB7hQB52SWaK9rgiKRAGaCTtjwFLUO34f3AohRfSs4gp2lvEb22O986Tum
+    y2gkS6bEPSJlcmL6b20jEzu/mAq8fD5/TKSK1RtcvdA8+wU0vCFS6lnffNmcdRic
+    LSCwBlxAsWRBgBs3z2IoMpgHWF6xL7arw3VkP6AcmODq3JWdXGBiO2tuTjLlU+QY
+    7gxASpe+xTwXPjKrSDDtYOpX3wAUDrKNFGu7HYcZsKUQxUvhn8XFmL0YtasV0Xzj
+    y5aO74tySK0wELkUxpH57dFYrT94z9WAa6eXBFuFAPA1OmbUxW3ffvtyhVYeWRcm
+    sFT83grs2BC8/sVy4E2crTNArp3sxXVgRmCUPmsj1Rs7T3fRlIQCyfcsMNaKXisL
+    vsQNjzRtz/QdrvYeASejlxLHhQHccBEdAhv85r+YZ5g3Vo2R1kLCFDTgIRmXyxUr
+    3E8W8T9BG0woE8Ezen3brHxoZek9hLCFIM9nn6WsfMO/DQID2GUvOMXw0tgV7vnZ
+    c/96y+yG+UWid2XC2NFYm8x05PjFM4dNj7xvmdfplrSKerllIsn8OTugB3bLAPTA
+    9BWHFWa6PtTeMxC3VaVmh7Cp/ia6csRtVTyYjTo0ym0Xik2E/Mkamij3EygcF4LT
+    AEb7cbhiXQIDAQABo1MwUTAdBgNVHQ4EFgQUWypdDHosrn0QnwNBUtdoLJe/nCIw
+    HwYDVR0jBBgwFoAUWypdDHosrn0QnwNBUtdoLJe/nCIwDwYDVR0TAQH/BAUwAwEB
+    /zANBgkqhkiG9w0BAQsFAAOCAgEAPz3Y98YHmlnccWZ+n55AiWnyO1unz+mtjSUf
+    sAE84ctA8uTL3q/GDDGVpCMf1eNvMVzoXkvGbxKdIkLM/7QePufRr0wSyGMXKbQn
+    nbUn9FzJ970/jABRl9c+TR2S2wpfjI88oFGc4twP/InrLHkTHQRiqF11we8I7XtY
+    NbjwYGdn+S6PKXljy9sYQi4++Pf20tsfD3wUC/BgXuPGSYyZadQ00bfWqblqzIv3
+    oR2X55pjiqZUGRd+cnx+fbALqyUTqfLu8auaCrZIqzUNwJbwpqwNGAEsYs2+TWHT
+    XyYOWMnh1KcPst8qXcb/aYIMmKE21LshaU4/gqi36jY0RYZzNjVF7V/Fgpt5G3eb
+    VTl+ACtHBFwFFhAR2S0w4dLG/r5y+yiaLFDUHyVdExlwWPm2MrcPwjlsL5Pb+e7A
+    9UrlS3BapgxzqJDl47VHtyPkI9f9zgk/eZLbsE1navLBB3IPfhyAg6c5OZCqxECG
+    dJRDwKHq9/Cg2SFHZd8c2F17Lpxdb+bjwgwLkXUVLXvp1kExoBmXalOVhIH+oS7Z
+    YETEP2Ac6yh7p4hWG7Ew+7YD7TjqMcLGosRndPzCpLA0flBSdF5jpIvwSK1jcGg8
+    HVdxQrfYjQ+uEEQPgySZ5K2vNCvuCqlcBh4jQwLBymNIMCRIoT1MFrNznAKFIAwR
+    /lLFWU4=
+    -----END CERTIFICATE-----

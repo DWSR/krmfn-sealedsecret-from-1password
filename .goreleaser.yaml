@@ -10,8 +10,7 @@ before:
 
 kos:
   - build: main
-    repositories:
-      - ghcr.io/dwsr/krmfn-sealedsecret-from-1password
+    repository: ghcr.io/dwsr/krmfn-sealedsecret-from-1password/krmfn
     platforms:
       - linux/arm64
       - linux/amd64

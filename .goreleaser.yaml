@@ -21,14 +21,7 @@ kos:
       - "{{.ShortCommit}}"
     sbom: spdx
 
-upx:
-  - enabled: true
-    compress: best
-    lzma: true
-    brute: true
-
 gomod:
-  proxy: true
   env:
     - GOPROXY=https://proxy.golang.org,direct
     - GOSUMDB=sum.golang.org

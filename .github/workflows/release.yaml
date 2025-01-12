@@ -19,15 +19,21 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: stable
-      - name: Install UPX
-        uses: crazy-max/ghaction-upx@v3
-        with:
-          install-only: true
+      - name: Use a snapshot release
+        run: >
+          echo 'goreleaser_flags=--snapshot' >>"${GITHUB_ENV}"
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
           version: "~> v2"
-          args: release --clean
+          args: release --clean ${{ env.goreleaser_flags }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7

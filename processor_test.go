@@ -11,8 +11,6 @@ import (
 )
 
 func Test_Process(t *testing.T) {
-	t.Parallel()
-
 	mockClient := &onepassword.Client{
 		Secrets: testhelpers.NewMockResolver(
 			map[string]string{

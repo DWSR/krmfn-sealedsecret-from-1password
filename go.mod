@@ -6,7 +6,7 @@ require (
 	github.com/1password/onepassword-sdk-go v0.1.5
 	github.com/bitnami-labs/sealed-secrets v0.27.3
 	github.com/spf13/cobra v1.8.1
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	sigs.k8s.io/kustomize/kyaml v0.18.1
 )
 

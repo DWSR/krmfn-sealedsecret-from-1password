@@ -11,7 +11,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/1password/onepassword-sdk-go"
+	"github.com/DWSR/krmfn-sealedsecret-from-1password/internal/secretsstore"
 	ssv1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealedsecrets/v1alpha1"
 	"github.com/bitnami-labs/sealed-secrets/pkg/crypto"
 	"github.com/bitnami-labs/sealed-secrets/pkg/kubeseal"
@@ -24,7 +24,7 @@ type (
 	Processor struct {
 		//nolint:containedctx
 		ctx     context.Context // yes you shouldn't do this
-		client  *onepassword.Client
+		client  secretsstore.SecretsStore
 		randSrc io.Reader
 	}
 
@@ -117,7 +117,7 @@ func (p Processor) Process(input *framework.ResourceList) error {
 
 	slog.DebugContext(p.ctx, "ensuring 1Password client")
 
-	client, err := ensureClient(p.ctx, p.client, cfg.Token)
+	client, err := ensureStore(p.ctx, p.client, cfg.Token)
 	if err != nil {
 		slog.ErrorContext(p.ctx, "error ensuring 1Password client", "err", err)
 
@@ -180,7 +180,7 @@ func (p Processor) Process(input *framework.ResourceList) error {
 
 func resolveSecretFunc(
 	ctx context.Context,
-	client *onepassword.Client,
+	store secretsstore.SecretsStore,
 	randSrc io.Reader,
 	secretName, secretNamespace string,
 	scope ssv1alpha1.SealingScope,
@@ -206,7 +206,7 @@ func resolveSecretFunc(
 			return err
 		}
 
-		secret, err := client.Secrets.Resolve(ctx, ref.String())
+		secret, err := store.Resolve(ctx, ref.String())
 		if err != nil {
 			return errors.Join(ErrResolveSecret, err)
 		}
@@ -224,19 +224,23 @@ func resolveSecretFunc(
 	}
 }
 
-func ensureClient(ctx context.Context, client *onepassword.Client, token string) (*onepassword.Client, error) {
-	if client == nil {
+//nolint:ireturn
+func ensureStore(
+	ctx context.Context, store secretsstore.SecretsStore, token string,
+) (secretsstore.SecretsStore, error) {
+	if store == nil {
 		slog.InfoContext(ctx, "creating new 1Password client")
 
-		newClient, err := NewClient(ctx, token)
+		newStore, err := secretsstore.NewOnePasswordStore(ctx, token)
 		if err != nil {
+			//nolint:wrapcheck
 			return nil, err
 		}
 
-		return newClient, nil
+		return newStore, nil
 	}
 
-	return client, nil
+	return store, nil
 }
 
 // NewProcessor creates a new Processor with the given options.
@@ -260,8 +264,8 @@ func WithContext(ctx context.Context) ProcessorOption {
 	}
 }
 
-// WithClient sets the 1Password client for the Processor.
-func WithClient(client *onepassword.Client) ProcessorOption {
+// WithSecretsStore sets the 1Password client for the Processor.
+func WithSecretsStore(client secretsstore.SecretsStore) ProcessorOption {
 	return func(p *Processor) {
 		p.client = client
 	}

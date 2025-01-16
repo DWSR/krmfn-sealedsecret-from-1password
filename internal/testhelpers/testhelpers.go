@@ -7,8 +7,8 @@ import (
 )
 
 type (
-	// MockResolver is a mock implementation of the Resolver interface from the onepassword package.
-	MockResolver struct {
+	// MockSecretsStore is a mock implementation of the Resolver interface from the onepassword package.
+	MockSecretsStore struct {
 		lookup map[string]string
 	}
 
@@ -19,21 +19,21 @@ type (
 	}
 )
 
-// ErrMockResolverNoLookup is returned when the secret reference is not found in the lookup map.
-var ErrMockResolverNoLookup = errors.New("no lookup for secret in mock resolver")
+// ErrMockSecretsStoreNoLookup is returned when the secret reference is not found in the lookup map.
+var ErrMockSecretsStoreNoLookup = errors.New("no lookup for secret in mock resolver")
 
 // Resolve returns the value from the lookup map for the given secret reference.
-func (r MockResolver) Resolve(_ context.Context, secretReference string) (string, error) {
+func (r MockSecretsStore) Resolve(_ context.Context, secretReference string) (string, error) {
 	if val, ok := r.lookup[secretReference]; ok {
 		return val, nil
 	}
 
-	return "", ErrMockResolverNoLookup
+	return "", ErrMockSecretsStoreNoLookup
 }
 
-// NewMockResolver creates a new MockResolver with the given lookup map.
-func NewMockResolver(lookup map[string]string) MockResolver {
-	return MockResolver{lookup: lookup}
+// NewMockSecretsStore creates a new MockResolver with the given lookup map.
+func NewMockSecretsStore(lookup map[string]string) MockSecretsStore {
+	return MockSecretsStore{lookup: lookup}
 }
 
 // NewStaticReader creates a new StaticReader with a predefined 64-byte slice.

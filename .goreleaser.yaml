@@ -5,7 +5,6 @@ version: 2
 
 before:
   hooks:
-    # You may remove this if you don't use go modules.
     - go mod tidy
 
 kos:
@@ -14,11 +13,18 @@ kos:
     platforms:
       - linux/arm64
       - linux/amd64
+    labels: 
+        org.opencontainers.image.created: "{{.Date}}"
+        org.opencontainers.image.name: "{{.ProjectName}}"
+        org.opencontainers.image.revision: "{{.FullCommit}}"
+        org.opencontainers.image.version: "{{.Version}}"
+        org.opencontainers.image.source: "{{.GitURL}}"
     tags:
       - "{{.Version}}"
       - "{{.Tag}}"
       - "{{.ShortCommit}}"
     sbom: spdx
+    bare: true
 
 gomod:
   env:
@@ -61,14 +67,8 @@ archives:
 
 changelog:
   sort: asc
+  use: github-native
   filters:
     exclude:
       - "^docs:"
       - "^test:"
-
-release:
-  footer: >-
-
-    ---
-
-    Released by [GoReleaser](https://github.com/goreleaser/goreleaser).

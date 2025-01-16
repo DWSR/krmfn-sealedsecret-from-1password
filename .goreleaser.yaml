@@ -13,7 +13,7 @@ kos:
     platforms:
       - linux/arm64
       - linux/amd64
-    labels: 
+    labels:
         org.opencontainers.image.created: "{{.Date}}"
         org.opencontainers.image.name: "{{.ProjectName}}"
         org.opencontainers.image.revision: "{{.FullCommit}}"

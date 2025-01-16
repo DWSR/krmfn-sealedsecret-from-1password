@@ -3,19 +3,15 @@ module github.com/DWSR/krmfn-sealedsecret-from-1password
 go 1.23.4
 
 require (
-	github.com/1password/onepassword-sdk-go v0.1.5
+	github.com/1password/onepassword-sdk-go v0.1.6
 	github.com/bitnami-labs/sealed-secrets v0.27.3
 	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.10.0
 	sigs.k8s.io/kustomize/kyaml v0.19.0
 )
 
-replace (
-	// https://github.com/1Password/onepassword-sdk-go/issues/171
-	github.com/1password/onepassword-sdk-go => github.com/1password/onepassword-sdk-go v0.1.5
-	// https://github.com/kubernetes/apimachinery/issues/185
-	sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.4.1
-)
+// https://github.com/kubernetes/apimachinery/issues/185
+replace sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.4.1
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
@@ -75,7 +71,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834 // indirect
-	github.com/tetratelabs/wazero v1.8.1 // indirect
+	github.com/tetratelabs/wazero v1.8.2 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.3.1 // indirect
 	golang.org/x/sys v0.28.0 // indirect

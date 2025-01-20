@@ -23,6 +23,10 @@ func Version() string {
 			dirty = true
 		}
 	}
+	print(versionStr)
+
+	// Short SHA. 1Password has a limit of 20 characters for the version.
+	versionStr = versionStr[0:7]
 
 	if dirty {
 		versionStr += "-dirty"

@@ -10,9 +10,6 @@ require (
 	sigs.k8s.io/kustomize/kyaml v0.19.0
 )
 
-// https://github.com/kubernetes/apimachinery/issues/185
-replace sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.4.1
-
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
@@ -42,7 +39,6 @@ require (
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.7.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/api v0.32.0 // indirect
 	k8s.io/apimachinery v0.32.0 // indirect
 	k8s.io/client-go v0.32.0 // indirect

@@ -43,10 +43,14 @@ type (
 )
 
 const (
+	//nolint:gosec
 	onePasswordServiceAccountTokenDefaultFile = "/var/run/secrets/onepassword/serviceaccount/token"
 )
 
 var (
+	// ErrReadTokenFromFile is returned when the 1Password service account token cannot be read from the file.
+	ErrReadTokenFromFile = errors.New("unable to read 1Password service account token from file")
+
 	// ErrLoadConfig is returned when the function configuration cannot be loaded, such as not having the required fields.
 	ErrLoadConfig = errors.New("unable to load function config")
 
@@ -117,16 +121,18 @@ func (p Processor) Process(input *framework.ResourceList) error {
 	err := framework.LoadFunctionConfig(input.FunctionConfig, &cfg)
 	if err != nil {
 		// Can't use errors.Is because the error is wrapped using github.com/go-errors/errors
-		if strings.Contains(err.Error(), ErrMissingToken.Error()) {
-			tok, fileErr := getOnePasswordServiceAccountTokenFromFile(p.tokenFile)
-			if fileErr != nil {
-				return errors.Join(ErrLoadConfig, err)
-			}
-			cfg.Token = tok
-			if err := cfg.Validate(); err != nil {
-				return errors.Join(ErrLoadConfig, err)
-			}
-		} else {
+		if !strings.Contains(err.Error(), ErrMissingToken.Error()) {
+			return errors.Join(ErrLoadConfig, err)
+		}
+
+		tok, fileErr := getOnePasswordServiceAccountTokenFromFile(p.tokenFile)
+		if fileErr != nil {
+			return errors.Join(ErrLoadConfig, err)
+		}
+
+		cfg.Token = tok
+
+		if err := cfg.Validate(); err != nil {
 			return errors.Join(ErrLoadConfig, err)
 		}
 	}
@@ -297,6 +303,7 @@ func WithRandSrc(randSrc io.Reader) ProcessorOption {
 	}
 }
 
+// WithOnePasswordServiceAccountTokenFile sets the path to the file containing the 1Password service account token.
 func WithOnePasswordServiceAccountTokenFile(tokenFilePath string) ProcessorOption {
 	return func(p *Processor) {
 		p.tokenFile = tokenFilePath
@@ -323,7 +330,7 @@ func sealSecret(
 func getOnePasswordServiceAccountTokenFromFile(path string) (string, error) {
 	token, err := os.ReadFile(path)
 	if err != nil {
-		return "", err
+		return "", errors.Join(err, ErrReadTokenFromFile)
 	}
 
 	return strings.TrimSpace(string(token)), nil

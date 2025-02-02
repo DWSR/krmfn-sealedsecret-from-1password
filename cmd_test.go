@@ -34,7 +34,7 @@ func Test_Cmd(t *testing.T) {
 
 func Test_Cmd_LoadTokenFromFile(t *testing.T) {
 	tokenFile := filepath.Join(t.TempDir(), "token")
-	err := os.WriteFile(tokenFile, []byte("token"), 0755)
+	err := os.WriteFile(tokenFile, []byte("token"), 0o600)
 	require.NoError(t, err)
 
 	crc := frameworktestutil.CommandResultsChecker{

@@ -328,6 +328,7 @@ func sealSecret(
 }
 
 func getOnePasswordServiceAccountTokenFromFile(path string) (string, error) {
+	//nolint:gosec
 	token, err := os.ReadFile(path)
 	if err != nil {
 		return "", errors.Join(err, ErrReadTokenFromFile)

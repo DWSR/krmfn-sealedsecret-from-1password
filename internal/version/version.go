@@ -30,7 +30,7 @@ func Version() string {
 
 	end := 7
 
-	if len(versionStr) < 7 {
+	if len(versionStr) < end {
 		end = len(versionStr)
 	}
 

@@ -9,6 +9,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"os"
 	"strings"
 
 	"github.com/DWSR/krmfn-sealedsecret-from-1password/internal/secretsstore"
@@ -23,9 +24,10 @@ type (
 	// Processor processes SealedSecrets in a ResourceList by resolving references to 1Password secrets.
 	Processor struct {
 		//nolint:containedctx
-		ctx     context.Context // yes you shouldn't do this
-		client  secretsstore.SecretsStore
-		randSrc io.Reader
+		ctx       context.Context // yes you shouldn't do this
+		client    secretsstore.SecretsStore
+		tokenFile string
+		randSrc   io.Reader
 	}
 
 	// Config is the configuration for the function.
@@ -40,7 +42,15 @@ type (
 	ProcessorOption func(*Processor)
 )
 
+const (
+	//nolint:gosec
+	onePasswordServiceAccountTokenDefaultFile = "/var/run/secrets/onepassword/serviceaccount/token"
+)
+
 var (
+	// ErrReadTokenFromFile is returned when the 1Password service account token cannot be read from the file.
+	ErrReadTokenFromFile = errors.New("unable to read 1Password service account token from file")
+
 	// ErrLoadConfig is returned when the function configuration cannot be loaded, such as not having the required fields.
 	ErrLoadConfig = errors.New("unable to load function config")
 
@@ -110,7 +120,21 @@ func (p Processor) Process(input *framework.ResourceList) error {
 
 	err := framework.LoadFunctionConfig(input.FunctionConfig, &cfg)
 	if err != nil {
-		return errors.Join(ErrLoadConfig, err)
+		// Can't use errors.Is because the error is wrapped using github.com/go-errors/errors
+		if !strings.Contains(err.Error(), ErrMissingToken.Error()) {
+			return errors.Join(ErrLoadConfig, err)
+		}
+
+		tok, fileErr := getOnePasswordServiceAccountTokenFromFile(p.tokenFile)
+		if fileErr != nil {
+			return errors.Join(ErrLoadConfig, err)
+		}
+
+		cfg.Token = tok
+
+		if err := cfg.Validate(); err != nil {
+			return errors.Join(ErrLoadConfig, err)
+		}
 	}
 
 	slog.DebugContext(p.ctx, "loaded config", "token", cfg.Token, "certString", cfg.CertString)
@@ -246,8 +270,9 @@ func ensureStore(
 // NewProcessor creates a new Processor with the given options.
 func NewProcessor(opts ...ProcessorOption) Processor {
 	proc := &Processor{
-		ctx:     context.Background(),
-		randSrc: rand.Reader,
+		ctx:       context.Background(),
+		randSrc:   rand.Reader,
+		tokenFile: onePasswordServiceAccountTokenDefaultFile,
 	}
 
 	for _, opt := range opts {
@@ -278,6 +303,13 @@ func WithRandSrc(randSrc io.Reader) ProcessorOption {
 	}
 }
 
+// WithOnePasswordServiceAccountTokenFile sets the path to the file containing the 1Password service account token.
+func WithOnePasswordServiceAccountTokenFile(tokenFilePath string) ProcessorOption {
+	return func(p *Processor) {
+		p.tokenFile = tokenFilePath
+	}
+}
+
 func sealSecret(
 	randSrc io.Reader,
 	secretName, secretNamespace string,
@@ -293,4 +325,14 @@ func sealSecret(
 	}
 
 	return base64.StdEncoding.EncodeToString(out), nil
+}
+
+func getOnePasswordServiceAccountTokenFromFile(path string) (string, error) {
+	//nolint:gosec
+	token, err := os.ReadFile(path)
+	if err != nil {
+		return "", errors.Join(err, ErrReadTokenFromFile)
+	}
+
+	return strings.TrimSpace(string(token)), nil
 }

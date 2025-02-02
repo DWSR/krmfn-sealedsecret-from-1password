@@ -1,0 +1,17 @@
+apiVersion: config.kubernetes.io/v1
+kind: ResourceList
+items:
+  - apiVersion: bitnami.com/v1alpha1
+    kind: SealedSecret
+    metadata:
+      name: foo
+    spec:
+      encryptedData:
+        foo: op://Vault Name/item/field
+      template:
+        metadata:
+          labels:
+            foo: bar
+functionConfig:
+  apiVersion: mentalclutter.ca/v1alpha1
+  kind: Tester

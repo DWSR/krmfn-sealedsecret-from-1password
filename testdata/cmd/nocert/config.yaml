@@ -1,0 +1,2 @@
+apiVersion: mentalclutter.ca/v1alpha1
+kind: Tester

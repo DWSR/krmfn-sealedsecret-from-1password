@@ -43,6 +43,7 @@ type (
 )
 
 const (
+	//nolint:gosec
 	onePasswordServiceAccountTokenEnv = "OP_SERVICE_ACCOUNT_TOKEN"
 	//nolint:gosec
 	onePasswordServiceAccountTokenDefaultFile = "/var/run/secrets/onepassword/serviceaccount/token"

@@ -43,6 +43,7 @@ type (
 )
 
 const (
+	onePasswordServiceAccountTokenEnv = "OP_SERVICE_ACCOUNT_TOKEN"
 	//nolint:gosec
 	onePasswordServiceAccountTokenDefaultFile = "/var/run/secrets/onepassword/serviceaccount/token"
 )
@@ -91,6 +92,25 @@ func (c Config) Validate() error {
 	return errors.Join(errs...)
 }
 
+// Default sets the default values for the function configuration. This is run automatically by the framework library.
+func (c *Config) Default() error {
+	// Only look at the environment variable here instead of both the file and the environment variable in order to support
+	// overriding the token file path with an opt. Largely for testing, but it might be useful for people who consume this
+	// as a library rather than a KRM function.
+	if c.Token == "" {
+		envTok, isSet := os.LookupEnv(onePasswordServiceAccountTokenEnv)
+		if isSet {
+			c.Token = envTok
+
+			return nil
+		}
+
+		return nil
+	}
+
+	return nil
+}
+
 // Cert returns the sealing certificate from the configuration.
 func (c Config) Cert() (*rsa.PublicKey, error) {
 	cert, err := kubeseal.ParseKey(bytes.NewReader([]byte(c.CertString)))
@@ -125,7 +145,7 @@ func (p Processor) Process(input *framework.ResourceList) error {
 			return errors.Join(ErrLoadConfig, err)
 		}
 
-		tok, fileErr := getOnePasswordServiceAccountTokenFromFile(p.tokenFile)
+		tok, fileErr := getTokenFromFile(p.tokenFile)
 		if fileErr != nil {
 			return errors.Join(ErrLoadConfig, err)
 		}
@@ -327,7 +347,7 @@ func sealSecret(
 	return base64.StdEncoding.EncodeToString(out), nil
 }
 
-func getOnePasswordServiceAccountTokenFromFile(path string) (string, error) {
+func getTokenFromFile(path string) (string, error) {
 	//nolint:gosec
 	token, err := os.ReadFile(path)
 	if err != nil {

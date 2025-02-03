@@ -48,3 +48,16 @@ func Test_Cmd_LoadTokenFromFile(t *testing.T) {
 
 	crc.Assert(t)
 }
+
+func Test_Cmd_LoadTokenFromEnv(t *testing.T) {
+	t.Setenv("OP_SERVICE_ACCOUNT_TOKEN", "token")
+
+	crc := frameworktestutil.CommandResultsChecker{
+		TestDataDirectory: "testdata/cmd-token-env",
+		Command: func() *cobra.Command {
+			return krmfnsealedsecretfrom1password.NewCmd()
+		},
+	}
+
+	crc.Assert(t)
+}

@@ -1,0 +1,35 @@
+name: Push to Main
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  actions: read
+  packages: read
+  contents: write
+  security-events: write
+  pull-requests: write
+  checks: write
+
+jobs:
+  codeql:
+    name: CodeQL - ${{ matrix.language }}
+    uses: DWSR/actions/.github/workflows/codeql.yml@main
+    strategy:
+      matrix:
+        include:
+          - language: go
+            build-mode: autobuild
+          - language: actions
+            build-mode: none
+    with:
+      language: "${{ matrix.language }}"
+      build-mode: "${{ matrix.build-mode }}"
+
+  golangci-lint:
+    name: golangci-lint
+    uses: DWSR/actions/.github/workflows/golangci-lint.yml@main
+
+  tests:
+    name: Tests
+    uses: DWSR/actions/.github/workflows/go-test-single.yml@main

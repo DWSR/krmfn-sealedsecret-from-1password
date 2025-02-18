@@ -1,3 +1,6 @@
+run:
+  timeout: 5m
+
 issues:
   uniq-by-line: false
   exclude-use-default: false

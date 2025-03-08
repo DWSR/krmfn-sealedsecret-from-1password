@@ -37,7 +37,7 @@ var (
 
 // Resolve resolves the secret reference using the 1Password client.
 func (o *OnePasswordStore) Resolve(ctx context.Context, reference string) (string, error) {
-	secret, err := o.client.Secrets.Resolve(ctx, reference)
+	secret, err := o.client.Secrets().Resolve(ctx, reference)
 	if err != nil {
 		return "", errors.Join(ErrSecretsStoreResolve, err)
 	}

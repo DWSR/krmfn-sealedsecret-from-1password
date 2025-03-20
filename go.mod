@@ -3,7 +3,7 @@ module github.com/DWSR/krmfn-sealedsecret-from-1password
 go 1.24.0
 
 require (
-	github.com/1password/onepassword-sdk-go v0.2.0
+	github.com/1password/onepassword-sdk-go v0.2.1
 	github.com/bitnami-labs/sealed-secrets v0.28.0
 	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0
@@ -52,7 +52,7 @@ require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dnephin/pflag v1.0.7 // indirect
 	github.com/dylibso/observe-sdk/go v0.0.0-20240819160327-2d926c5d788a // indirect
-	github.com/extism/go-sdk v1.6.1 // indirect
+	github.com/extism/go-sdk v1.7.0 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect

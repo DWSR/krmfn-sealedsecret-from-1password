@@ -1,7 +1,7 @@
 dario.cat/mergo v1.0.1 h1:Ra4+bf83h2ztPIQYNP99R6m+Y7KfnARDfID+a+vLl4s=
 dario.cat/mergo v1.0.1/go.mod h1:uNxQE+84aUszobStD9th8a29P2fMDhsBdgRYvZOxGmk=
-github.com/1password/onepassword-sdk-go v0.2.0 h1:yfibWFlWg1XhJu09vXBNHQsSkrdw2dLX05dp7q5qzqk=
-github.com/1password/onepassword-sdk-go v0.2.0/go.mod h1:tCgAKPZA64sVLmwizpOtFVc+OtXYHCwSp/+2Y+7CxyY=
+github.com/1password/onepassword-sdk-go v0.2.1 h1:wwJmjR3UrwYxgAmNpKZ/mHOgFYCz6aQx7NxQ2YCFOL8=
+github.com/1password/onepassword-sdk-go v0.2.1/go.mod h1:R+3/jgPZRbfuXrMCqrl3NM46MMbpc4Zue5S5KRv6yC8=
 github.com/Masterminds/goutils v1.1.1 h1:5nUrii3FMTL5diU80unEVvNevw1nH4+ZV4DSLVJLSYI=
 github.com/Masterminds/goutils v1.1.1/go.mod h1:8cTjp+g8YejhMuvIA5y2vz3BpJxksy863GQaJW2MFNU=
 github.com/Masterminds/semver/v3 v3.3.0 h1:B8LGeaivUe71a5qox1ICM/JLl0NqZSW5CHyL+hmvYS0=
@@ -23,8 +23,8 @@ github.com/dylibso/observe-sdk/go v0.0.0-20240819160327-2d926c5d788a h1:UwSIFv5g
 github.com/dylibso/observe-sdk/go v0.0.0-20240819160327-2d926c5d788a/go.mod h1:C8DzXehI4zAbrdlbtOByKX6pfivJTBiV9Jjqv56Yd9Q=
 github.com/emicklei/go-restful/v3 v3.12.1 h1:PJMDIM/ak7btuL8Ex0iYET9hxM3CI2sjZtzpL63nKAU=
 github.com/emicklei/go-restful/v3 v3.12.1/go.mod h1:6n3XBCmQQb25CM2LCACGz8ukIrRry+4bhvbpWn3mrbc=
-github.com/extism/go-sdk v1.6.1 h1:gkbkG5KzYKrv8mLggw5ojg/JulXfEbLIRVhbw9Ot7S0=
-github.com/extism/go-sdk v1.6.1/go.mod h1:yRolc4PvIUQ9J/BBB3QZ5EY1MtXAN2jqBGDGR3Sk54M=
+github.com/extism/go-sdk v1.7.0 h1:yHbSa2JbcF60kjGsYiGEOcClfbknqCJchyh9TRibFWo=
+github.com/extism/go-sdk v1.7.0/go.mod h1:Dhuc1qcD0aqjdqJ3ZDyGdkZPEj/EHKVjbE4P+1XRMqc=
 github.com/fatih/color v1.15.0/go.mod h1:0h5ZqXfHYED7Bhv2ZJamyIOUej9KtShiJESRwBDUSsw=
 github.com/fatih/color v1.16.0 h1:zmkK9Ngbjj+K0yRhTVONQh1p/HknKYSlNT+vZCzyokM=
 github.com/fatih/color v1.16.0/go.mod h1:fL2Sau1YI5c0pdGEVCbKQbLXB6edEj1ZgiY4NijnWvE=

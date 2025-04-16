@@ -1,6 +1,7 @@
 module github.com/DWSR/krmfn-sealedsecret-from-1password
 
 go 1.24.0
+
 require (
 	github.com/1password/onepassword-sdk-go v0.2.1
 	github.com/bitnami-labs/sealed-secrets v0.29.0
@@ -32,7 +33,7 @@ require (
 	github.com/spf13/cast v1.7.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
 	golang.org/x/term v0.30.0 // indirect
 	golang.org/x/text v0.23.0 // indirect

@@ -3,7 +3,7 @@ module github.com/DWSR/krmfn-sealedsecret-from-1password
 go 1.24.0
 
 require (
-	github.com/1password/onepassword-sdk-go v0.2.1
+	github.com/1password/onepassword-sdk-go v0.3.0
 	github.com/bitnami-labs/sealed-secrets v0.29.0
 	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0
@@ -75,7 +75,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834 // indirect
-	github.com/tetratelabs/wazero v1.8.2 // indirect
+	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.3.1 // indirect
 	golang.org/x/mod v0.23.0 // indirect

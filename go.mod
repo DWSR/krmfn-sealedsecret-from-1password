@@ -3,7 +3,7 @@ module github.com/DWSR/krmfn-sealedsecret-from-1password
 go 1.24.0
 
 require (
-	github.com/1password/onepassword-sdk-go v0.3.0
+	github.com/1password/onepassword-sdk-go v0.3.1
 	github.com/bitnami-labs/sealed-secrets v0.29.0
 	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0

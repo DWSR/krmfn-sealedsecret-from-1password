@@ -7,7 +7,7 @@ require (
 	github.com/bitnami-labs/sealed-secrets v0.32.2
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1
-	sigs.k8s.io/kustomize/kyaml v0.21.0
+	sigs.k8s.io/kustomize/kyaml v0.21.1
 )
 
 require (
